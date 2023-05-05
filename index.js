@@ -45,7 +45,7 @@ app.listen(port, () => {
 
 //SELECT E PREENCHE a variavel 'pessoas'' com o resultset
 app.get('/', (req, res) => {
-    pool.query('SELECT * FROM cliente order by codigo', (error, results) => {
+    pool.query('SELECT * FROM cliente order by codCli', (error, results) => {
         if (error) {
             throw error;
         }
@@ -83,7 +83,7 @@ app.post('/produtosFiltro', (req, res) => {
 
 //SELECT E PREENCHE a variavel 'pessoas'' com o resultset
 app.get('/clientes', (req, res) => {
-    pool.query('SELECT * FROM clientes order by codCli desc', (error, results) => {
+    pool.query('SELECT * FROM cliente order by codCli desc', (error, results) => {
         if (error) {
             throw error;
         } 
