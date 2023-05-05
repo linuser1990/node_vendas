@@ -1,0 +1,35 @@
+<%- include('./header'); %>
+
+<form method="post" action="/inserir">	
+	<table>
+		<tr>
+			<td>
+				Nome:
+			</td>
+
+			<td>
+				<input type="text" id="nome" name="nome">
+			</td>
+
+		</tr>
+
+		<tr>
+			<td>
+				Celular:
+			</td>
+
+			<td>
+				<input type="text" id="cel" name="cel">
+			</td>
+
+		</tr>
+
+		<tr>
+			<td> <input type="submit" value="Salvar" /> </td>
+			<td> <input type="button" onclick="cancelar();" value="Cancelar" /> </td>
+		</tr>
+
+	</table>
+<form>
+
+<%- include('./footer'); %>
