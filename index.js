@@ -231,3 +231,15 @@ app.get('/addProdutos', (req, res) => {
     res.render('addProdutos', { varTitle: "Sistema de Vendas - Cadastro Produtos" });
 
 });
+
+//SELECT E PREENCHE a variavel 'pessoas'' com o resultset
+app.get('/venda', (req, res) => {
+    pool.query('SELECT * FROM cliente ', (error, results) => {
+        if (error) {
+            throw error;
+        } 
+
+        res.render('venda', { varTitle: "Sistema de Vendas - Venda", pessoas: results.rows });
+
+    });
+});

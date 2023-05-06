@@ -1,0 +1,18 @@
+<%- include('./header'); %>
+<form>
+
+    Cliente:
+    <select id=idcliente>
+        <option>Cliente</option>
+
+        <%
+		var p = pessoas.length;
+		for(var i=0;i<p;i++)
+		{
+	    %>
+            <option><%=pessoas[i].nome%></option>>
+        <% } %>
+        
+    </select>
+
+</form>
