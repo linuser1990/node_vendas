@@ -9,9 +9,11 @@
 <table class="styled-table">
     <thead>
         <tr>
-            <th>C�digo</th>
+            <th>Código</th>
             <th>Nome</th>
-            <th>Valor</th>
+            <th>Preço venda</th>
+            <th>Preço custo</th>
+            <th>Estoque</th>
             <th></th>
         </tr>
     </thead>
@@ -25,9 +27,11 @@
             <tr>
                 <td><%=produtos[i].codpro%></td>
                 <td><%=produtos[i].nome%></td>
-                <td><%=produtos[i].valorunitario%></td>
-                <td><a href="/deletarProduto/<%=produtos[i].codPro%>"> Deletar </a> - 
-                    <a href="/editarProduto/<%= produtos[i].codPro%>" > Alterar </a> 
+                <td><%=produtos[i].precovenda%></td>
+                <td><%=produtos[i].precocusto%></td>
+                <td><%=produtos[i].estoque%></td>
+                <td><a href="/deletarProduto/<%=produtos[i].codpro%>"> Deletar </a> - 
+                    <a href="/editarProduto/<%= produtos[i].codpro%>" > Alterar </a> 
                 
                 </td>
                

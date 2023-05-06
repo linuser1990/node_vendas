@@ -1,6 +1,6 @@
 <%- include('./header'); %>
 
-<form method="post" action="/alterar/<%=pessoas[0].codigo%>">
+<form method="post" action="/alterar/<%=pessoas[0].codcli%>">
 	<table class="styled-table">
 
 		<th>
@@ -13,7 +13,7 @@
 			</td>
 
 			<td>
-				<input type="text" value="<%=pessoas[0].codigo%>"  readonly>
+				<input type="text" name="codigo" id="codgo" value="<%=pessoas[0].codcli%>"  readonly>
 			</td>
 		</tr>
 		
@@ -65,7 +65,7 @@
 
 	</table>
 
-<input type="hidden" name="codigo" value="<%=pessoas[0].codigo%>">
+<input type="hidden" name="codcli" id="codcli" value="<%=pessoas[0].codcli%>">
 
 <input type="submit" value="Alterar"> 
 <input type="button" value="Cancelar" onclick="cancelar();">

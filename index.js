@@ -144,10 +144,10 @@ app.get('/deletarProduto/:codigo', (req, res) => {
 app.post('/inserirProduto', (req, res) => {
     //parseFloat converte para numero
     //var soma=10+parseFloat(req.body.valor);
-    var cols = [req.body.nome, req.body.valor];
+    var cols = [req.body.nome, req.body.precovenda,req.body.precocusto,req.body.estoque];
     
   
-    pool.query('insert into produto (nome,valor) values($1,$2)', cols, (error, results) => {
+    pool.query('insert into produto (nome,precovenda,precocusto,estoque) values($1,$2,$3,$4)', cols, (error, results) => {
         if (error) {
             throw error;
         }
@@ -161,8 +161,8 @@ app.post('/inserirProduto', (req, res) => {
 
 //UPDATE
 app.post('/alterar/:codigo', (req, res) => {
-    var cols = [req.body.nome, req.body.endereco, req.body.cpf, req.body.cel]
-    pool.query('update cliente set nome=$1,endereco=$2,cpf=$3, cel=$4 where codCli=$3', cols, (error, results) => {
+    var cols = [req.body.nome, req.body.endereco, req.body.cpf, req.body.cel,req.body.codcli]
+    pool.query('update cliente set nome=$1,endereco=$2,cpf=$3, cel=$4 where codcli=$5', cols, (error, results) => {
         if (error) {
             throw error;
         }
