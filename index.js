@@ -111,9 +111,9 @@ app.get('/deletar/:codigo', (req, res) => {
 
 //INSERIR
 app.post('/inserir', (req, res) => {
-    var cols = [req.body.nome, req.body.cel];
+    var cols = [req.body.nome, req.body.endereco, req.body.cpf, req.body.cel];
   
-    pool.query('insert into cliente (nome,cel) values($1,$2)', cols, (error, results) => {
+    pool.query('insert into cliente (nome,endereco,cpf,cel) values($1,$2,$3,$4)', cols, (error, results) => {
         if (error) {
             throw error;
         }
@@ -161,8 +161,8 @@ app.post('/inserirProduto', (req, res) => {
 
 //UPDATE
 app.post('/alterar/:codigo', (req, res) => {
-    var cols = [req.body.nome, req.body.cel, req.body.codigo]
-    pool.query('update cliente set nome=$1, cel=$2 where codCli=$3', cols, (error, results) => {
+    var cols = [req.body.nome, req.body.endereco, req.body.cpf, req.body.cel]
+    pool.query('update cliente set nome=$1,endereco=$2,cpf=$3, cel=$4 where codCli=$3', cols, (error, results) => {
         if (error) {
             throw error;
         }
