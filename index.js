@@ -237,8 +237,8 @@ app.get('/addProdutos', (req, res) => {
 
 app.get('/venda', async (req, res) => {
   try {
-    const clientes = await pool.query('SELECT nome FROM cliente');
-    const produtos = await pool.query('SELECT nome FROM produto');
+    const clientes = await pool.query('SELECT * FROM cliente');
+    const produtos = await pool.query('SELECT * FROM produto');
     res.render('venda', { varTitle: "Sistema de Vendas - Venda",clientes: clientes.rows, produtos: produtos.rows });
   } catch (err) {
     console.error(err.message);

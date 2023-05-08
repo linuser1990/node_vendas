@@ -1,28 +1,35 @@
 <%- include('./header'); %>
 <form>
-
+    
     Cliente:
-    <select id=idcliente>
-        <%
-		var p = clientes.length;
-		for(var i=0;i<p;i++)
-		{
-	    %>
-            <option><%=clientes[i].nome%></option>>
-        <% } %>
-        
-    </select>
+    <div class="select-estiloso">
+        <select id="selectcliente" onchange="getSelectedValue();">
+            <%
+            var p = clientes.length;
+            for(var i=0;i<p;i++)
+            {
+            %>
+                <option value="<%=clientes[i].codcli%>"><%=clientes[i].nome%></option>>
+            <% } %>
+            
+        </select>
+    </div>
+    <input type="hidden" id="codcli">
 
     Produto:
-    <select id=idproduto>
-        <%
-		var c = produtos.length;
-		for(var i=0;i<p;i++)
-		{
-	    %>
-            <option><%=produtos[i].nome%></option>>
-        <% } %>
-        
-    </select>
+    <div class="select-estiloso">
+        <select id="selectproduto" onchange="getSelectedValue();">
+            <%
+            var c = produtos.length;
+            for(var i=0;i<c;i++)
+            {
+            %>
+                <option value="<%=produtos[i].codpro%>"><%=produtos[i].nome%></option>>
+            <% } %>
+            
+        </select>
+    </div>
+
+    <input type="hidden" id="codpro">
 
 </form>
