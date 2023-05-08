@@ -3,8 +3,18 @@
 
     Cliente:
     <select id=idcliente>
-        <option>Cliente</option>
+        <%
+		var p = pessoas.length;
+		for(var i=0;i<p;i++)
+		{
+	    %>
+            <option><%=pessoas[i].c.nome%></option>>
+        <% } %>
+        
+    </select>
 
+    Produto:
+    <select id=idproduto>
         <%
 		var p = pessoas.length;
 		for(var i=0;i<p;i++)

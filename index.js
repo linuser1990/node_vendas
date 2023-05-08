@@ -234,7 +234,7 @@ app.get('/addProdutos', (req, res) => {
 
 //SELECT E PREENCHE a variavel 'pessoas'' com o resultset
 app.get('/venda', (req, res) => {
-    pool.query('SELECT * FROM cliente ', (error, results) => {
+    pool.query('SELECT p.nome FROM cliente as c,produto as p ', (error, results) => {
         if (error) {
             throw error;
         } 
