@@ -4,11 +4,11 @@
     Cliente:
     <select id=idcliente>
         <%
-		var p = pessoas.length;
+		var p = clientes.length;
 		for(var i=0;i<p;i++)
 		{
 	    %>
-            <option><%=pessoas[i].c.nome%></option>>
+            <option><%=clientes[i].nome%></option>>
         <% } %>
         
     </select>
@@ -16,11 +16,11 @@
     Produto:
     <select id=idproduto>
         <%
-		var p = pessoas.length;
+		var c = produtos.length;
 		for(var i=0;i<p;i++)
 		{
 	    %>
-            <option><%=pessoas[i].nome%></option>>
+            <option><%=produtos[i].nome%></option>>
         <% } %>
         
     </select>

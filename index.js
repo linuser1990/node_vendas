@@ -6,6 +6,7 @@ const app = express();
 const port = 3000;
 const { Pool } = require('pg');
 
+
 //aceitando EJS
 app.set('view engine', 'ejs');
 app.set('views', './views');
@@ -232,14 +233,16 @@ app.get('/addProdutos', (req, res) => {
 
 });
 
-//SELECT E PREENCHE a variavel 'pessoas'' com o resultset
-app.get('/venda', (req, res) => {
-    pool.query('SELECT p.nome FROM cliente as c,produto as p ', (error, results) => {
-        if (error) {
-            throw error;
-        } 
+//SELECT E PREENCHE a variavel 'clientes' e 'produtos' com o resultset para prenncher os selects
 
-        res.render('venda', { varTitle: "Sistema de Vendas - Venda", pessoas: results.rows });
-
-    });
+app.get('/venda', async (req, res) => {
+  try {
+    const clientes = await pool.query('SELECT nome FROM cliente');
+    const produtos = await pool.query('SELECT nome FROM produto');
+    res.render('venda', { varTitle: "Sistema de Vendas - Venda",clientes: clientes.rows, produtos: produtos.rows });
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Erro no servidor');
+  }
 });
+
