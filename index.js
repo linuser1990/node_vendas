@@ -250,10 +250,13 @@ app.get('/venda', async (req, res) => {
 app.post('/inserirvenda', (req, res) => {
     //parseFloat converte para numero
     //var soma=10+parseFloat(req.body.valor);
-    const selectCliente = document.getElementById("selectcliente");
-    const selectProduto = document.getElementById("selectproduto");
+    
+    //teste pegando value do select
+    const selectCliente = req.body.selectcliente;
+    console.log(parseInt(selectCliente,10));
+    //-----------------------------------------//
 
-    var cols = [selectCliente, selectProduto,req.body.qtd,req.body.total];
+    var cols = [req.body.codcli, req.body.codpro ,req.body.qtd,req.body.total];
     
   
     pool.query('insert into venda (cliente_codcli,produto_codpro,qtd,total) values($1,$2,$3,$4)', cols, (error, results) => {
@@ -266,4 +269,13 @@ app.post('/inserirvenda', (req, res) => {
 
 
     });
+});
+
+
+//HISTORICO VENDAS
+
+app.get('/historico_vendas', (req, res) => {
+
+    res.render('historico_vendas');
+
 });

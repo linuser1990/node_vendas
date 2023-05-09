@@ -1,9 +1,9 @@
 <%- include('./header'); %>
-<form>
+<form method="post" action="/inserirvenda">
     
     Cliente:
     <div class="select-estiloso">
-        <select id="selectcliente" onchange="getSelectedValue();">
+        <select id="selectcliente" name="selectcliente" onchange="getSelectedValue();">
             <%
             var p = clientes.length;
             for(var i=0;i<p;i++)
@@ -14,7 +14,7 @@
             
         </select>
     </div>
-    <input type="hidden" id="codcli">
+    <input type="hidden" name="codcli" id="codcli">
 
     Produto:
     <div class="select-estiloso">
@@ -30,7 +30,7 @@
         </select>
     </div>
 
-    <input type="hidden" id="codpro">
+    <input type="hidden" name="codpro" id="codpro">
     Quantidade:<br>
     <input type="text" name="qtd" id="qtd"> <br>
     Total:<br>
