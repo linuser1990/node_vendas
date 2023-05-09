@@ -1,45 +1,90 @@
-<%- include('./header'); %>
-
-<table class="styled-table">
-    <thead>
-        <tr>
-            <th>Código</th>
-            <th>Nome</th>
-            <th>Endereço</th>
-            <th>CPF</th>
-            <th>Celular</th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-    
-	<%
-		var p = pessoas.length;
-		for(var i=0;i<p;i++)
-		{
-	%>
-            <tr>
-                <td><%=pessoas[i].codcli%></td>
-                <td><%=pessoas[i].nome%></td>
-                <td><%=pessoas[i].endereco%></td>
-                <td><%=pessoas[i].cpf%></td>
-                <td><%=pessoas[i].cel%></td>
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Exemplo Bootstrap</title>
+    <!-- Adicionando o CSS do Bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<body>
+    <!-- Criando o menu -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="/">HOME</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
                 
-                <td><a href="/deletar/<%= pessoas[i].codcli %>"> Deletar </a> - 
-                    <a href="/editar/<%= pessoas[i].codcli%>" > Alterar </a> 
+                <li class="nav-item">
+                    <a class="nav-link" href="/clientes">CLIENTES</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/add">CADASTRO DE CLIENTES</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/produtos">PRODUTOS</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/addProdutos">CADASTRO DE PRODUTOS</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/venda">VENDA</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/historico_vendas">HISTÓRICO DE VENDAS</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Criando a tabela -->
+    <div class="container mt-4">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Código</th>
+                    <th>Nome</th>
+                    <th>Endereço</th>
+                    <th>CPF</th>
+                    <th>Celular</th>
+                </tr>
+            </thead>
+            <tbody>
+                <%
+                    var p = pessoas.length;
+                    for(var i=0;i<p;i++)
+                {
+                %>
+
+                <tr>
+                    <td><%=pessoas[i].codcli%></td>
+                    <td><%=pessoas[i].nome%></td>
+                    <td><%=pessoas[i].endereco%></td>
+                    <td><%=pessoas[i].cpf%></td>
+                    <td><%=pessoas[i].cel%></td>
+                    
+                    <td><a href="/deletar/<%= pessoas[i].codcli %>"> Deletar </a> - 
+                        <a href="/editar/<%= pessoas[i].codcli%>" > Alterar </a> 
+                    
+                    </td>
+                   
+                </tr>
                 
-                </td>
-               
-            </tr>
-			
-	<%
-		}	
-	%>
-        <!-- and so on... -->
-    </tbody>
-</table>
+        <%
+            }	
+        %>
+                <!-- Linhas da tabela seriam adicionadas aqui -->
 
+            </tbody>
+        </table>
+    </div>
 
-	
+    <!-- Adicionando o JS do Bootstrap -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+</html>
 
-<%- include('./footer'); %>
