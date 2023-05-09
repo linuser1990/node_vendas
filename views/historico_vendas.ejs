@@ -23,30 +23,20 @@
         </tr>
       </thead>
       <tbody>
+        <%
+        var r = resultado.length;
+		    for(var i=0;i<r;i++)
+		    {
+          %>
         <tr>
-          <td>001</td>
-          <td>João</td>
-          <td>Camiseta</td>
-          <td>2</td>
-          <td>R$ 50,00</td>
-          <td>01/05/2023</td>
+          <td><%=resultado[i].codvenda%></td>
+          <td><%=resultado[i].cliente.nome%></td>
+          <td><%=resultado[i].produto.nome%></td>
+          <td><%=resultado[i].qtd%></td>
+          <td><%=resultado[i].total%></td>
+          <td><%=resultado[i].data_venda%></td>
         </tr>
-        <tr>
-          <td>002</td>
-          <td>Maria</td>
-          <td>Calça</td>
-          <td>1</td>
-          <td>R$ 80,00</td>
-          <td>02/05/2023</td>
-        </tr>
-        <tr>
-          <td>003</td>
-          <td>Carlos</td>
-          <td>Tênis</td>
-          <td>1</td>
-          <td>R$ 120,00</td>
-          <td>03/05/2023</td>
-        </tr>
+      <% } %>
       </tbody>
     </table>
   </div>

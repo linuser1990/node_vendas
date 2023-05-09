@@ -275,7 +275,15 @@ app.post('/inserirvenda', (req, res) => {
 //HISTORICO VENDAS
 
 app.get('/historico_vendas', (req, res) => {
+    pool.query('SELECT * FROM venda inner join cliente on '+
+    'venda.cliente_codcli = cliente.codcli '+
+    'inner join produto on produto.codpro = venda.produto_codpro '+
+    'order by data_venda', (error, results) => {
+        if (error) {
+            throw error;
+        } 
 
-    res.render('historico_vendas');
+        res.render('historico_vendas',{resultado : results.rows});
 
+    });
 });
