@@ -9,6 +9,12 @@
     integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 <body>
+  <a href="/" >HOME</a> -
+  <a href="/clientes" >Clientes</a> - <a href="/add" >Cadastrar Cliente</a>
+  - <a href="/produtos" >Produtos</a> - <a href="/addProdutos"> Cadastrar Produtos</a>
+  - <a href="/venda"> Vendas</a> - <a href="/historico_vendas"> Histórico Vendas</a>
+  <br>
+  
   <div class="container">
     <h1>Tabela de Vendas</h1>
     <table class="table table-striped">
@@ -30,8 +36,8 @@
           %>
         <tr>
           <td><%=resultado[i].codvenda%></td>
-          <td><%=resultado[i].cliente.nome%></td>
-          <td><%=resultado[i].produto.nome%></td>
+          <td><%=resultado[i].nome_cliente%></td>
+          <td><%=resultado[i].nome_produto%></td>
           <td><%=resultado[i].qtd%></td>
           <td><%=resultado[i].total%></td>
           <td><%=resultado[i].data_venda%></td>
