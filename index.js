@@ -248,7 +248,9 @@ app.post('/inserirvenda', (req, res) => {
     
     //teste pegando value do select
     const selectCliente = req.body.selectcliente;
+    const selectProduto = req.body.selectproduto;
     console.log(parseInt(selectCliente,10));
+    console.log(parseInt(selectProduto,10));
     //-----------------------------------------//
 
     var cols = [req.body.codcli, req.body.codpro ,req.body.qtd,req.body.total];

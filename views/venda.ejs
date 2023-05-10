@@ -1,12 +1,13 @@
 <%- include('./header'); %>
 <form method="post" action="/inserirvenda">
     
-    Cliente:
+    
     <div class="select-estiloso">
         <select id="selectcliente" name="selectcliente" onchange="getSelectedValue();">
+            <option selected="selected" disable hidden>CLIENTES</option>
             <%
-            var p = clientes.length;
-            for(var i=0;i<p;i++)
+            var c = clientes.length;
+            for(var i=0;i<c;i++)
             {
             %>
                 <option value="<%=clientes[i].codcli%>"><%=clientes[i].nome%></option>>
@@ -16,21 +17,23 @@
     </div>
     <input type="hidden" name="codcli" id="codcli">
 
-    Produto:
+
     <div class="select-estiloso">
-        <select id="selectproduto" onchange="getSelectedValue();">
+        <select id="selectproduto" name="selectproduto" onchange="getSelectedValue();">
+            <option selected="selected" disable hidden>PRODUTOS</option>
             <%
-            var c = produtos.length;
-            for(var i=0;i<c;i++)
+            var p = produtos.length;
+            for(var i=0;i<p;i++)
             {
             %>
                 <option value="<%=produtos[i].codpro%>"><%=produtos[i].nome%></option>>
             <% } %>
-            
+           
         </select>
     </div>
 
     <input type="hidden" name="codpro" id="codpro">
+
     Quantidade:<br>
     <input type="text" name="qtd" id="qtd"> <br>
     Total:<br>
@@ -40,3 +43,4 @@
 
 
 </form>
+<%- include('./footer'); %>
