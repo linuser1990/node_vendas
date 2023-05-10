@@ -42,3 +42,5 @@ function formatarTelefone(telefone) {
     return numeros;
   }
 
+
+

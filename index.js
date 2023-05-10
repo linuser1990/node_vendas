@@ -44,16 +44,11 @@ app.listen(port, () => {
     console.log(`Servidor rodando na porta ${port}`);
 });
 
-//SELECT E PREENCHE a variavel 'pessoas'' com o resultset
+
 app.get('/', (req, res) => {
-    pool.query('SELECT * FROM cliente order by codCli', (error, results) => {
-        if (error) {
-            throw error;
-        }
+        res.render('home', { varTitle: "Sistema de Vendas - HOME"});
 
-        res.render('index', { varTitle: "Sistema de Vendas - HOME", pessoas: results.rows });
-
-    });
+    
 });
 
 //SELECT E PREENCHE a variavel 'produtos'' com o resultset
