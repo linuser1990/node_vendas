@@ -51,6 +51,12 @@ app.get('/', (req, res) => {
     
 });
 
+app.get('/teste', (req, res) => {
+    res.render('teste');
+
+
+});
+
 //SELECT E PREENCHE a variavel 'produtos'' com o resultset
 app.get('/produtos', (req, res) => {
     pool.query('SELECT * FROM produto order by codPro', (error, results) => {
@@ -168,6 +174,10 @@ app.post('/alterar/:codigo', (req, res) => {
 
 
     });
+});
+
+app.post('/mostrar', (req, res) => {
+   console.log(req.body.valor);
 });
 
 
