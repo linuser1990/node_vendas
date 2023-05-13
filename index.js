@@ -271,7 +271,7 @@ app.post('/inserirvenda', (req, res) => {
             throw error;
         }
 
-        res.redirect('/produtos');
+        res.redirect('/historico_vendas');
 
 
 
