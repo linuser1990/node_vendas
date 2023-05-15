@@ -4,23 +4,7 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
   <script src="/funcoes.js"></script>
 
-  <!-- FORMATA O CAMPO CELULAR-->
-  <script>
-    const celInput = document.getElementById("cel");
 
-    celInput.addEventListener("input", function() {
-      const inputText = celInput.value.replace(/\D/g, "").substring(0,11);
-      const formattedText = `(${inputText.slice(0,2)})${inputText.slice(2,7)}-${inputText.slice(7)}`;
-      celInput.value = formattedText;
-    });
-  </script>
-
-  <script>
-		$(document).ready(function(){
-			$('#valor').inputmask();
-		});
-	</script>
-
-	</body>
+ 	</body>
 
 </html>
