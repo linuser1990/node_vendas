@@ -59,6 +59,7 @@ function formatarTelefone(telefone) {
     return numeros;
   }
 
+  //atualiza o campo total automatico, multiplicando qtd por precovenda
   function totalVenda()
   {
     var qtd = document.getElementById('qtd');
