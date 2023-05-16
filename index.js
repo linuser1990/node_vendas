@@ -5,7 +5,9 @@ const bodyParser = require("body-parser");
 const app = express();
 const port = 3000;
 const { Pool } = require('pg');
+const notifier = require('node-notifier');//exibir popup na tela
 
+var estoque=0;
 
 //aceitando EJS
 app.set('view engine', 'ejs');
@@ -148,7 +150,6 @@ app.post('/inserirProduto', (req, res) => {
     //var soma=10+parseFloat(req.body.valor);
     var cols = [req.body.nome, req.body.precovenda,req.body.precocusto,req.body.estoque];
     
-  
     pool.query('insert into produto (nome,precovenda,precocusto,estoque) values($1,$2,$3,$4)', cols, (error, results) => {
         if (error) {
             throw error;
@@ -259,23 +260,66 @@ app.post('/inserirvenda', (req, res) => {
     //teste pegando value do select
     const selectCliente = req.body.selectcliente;
     const selectProduto = req.body.selectproduto;
-    console.log(parseInt(selectCliente,10));
-    console.log(parseInt(selectProduto,10));
+    console.log('codido do cleinte selecionado:'+parseInt(selectCliente,10));
+    console.log('codido do produto selecionado:'+parseInt(selectProduto,10));
     //-----------------------------------------//
 
     var cols = [req.body.codcli, req.body.codpro ,req.body.qtd,req.body.total];
     
-  
-    pool.query('insert into venda (cliente_codcli,produto_codpro,qtd,total) values($1,$2,$3,$4)', cols, (error, results) => {
+    
+    //VERIFICA ESTOQUE ANTES
+    pool.query('SELECT estoque FROM produto where codpro='+req.body.codpro, (error, results) => {
         if (error) {
             throw error;
         }
+        //pega o valor do resultado do select
+        estoque = results.rows[0].estoque;
 
-        res.redirect('/historico_vendas');
 
-
-
+       if(Number(estoque) < Number(cols[2]))
+       {
+           
+               // Renderizar a página HTML com o novo valor do campo 'estoque'
+               res.send(`
+               <!DOCTYPE html>
+               <html>
+               <head>
+                    <meta charset="UTF-8">
+                    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+                    <title>Erro: Quantidade maior do que estoque disponivel</title>
+                  
+               </head>
+               <body>
+               <h1 style="position: relative; margin: 0; text-align: center;">
+               Quantidade selecionada é maior do que disponivel em estoque!
+               </h1>
+               <br><br>
+                   Quantidade selecionada: ${cols[2]} <br>
+                   Estoque disponivel: ${estoque}
+             
+               </body>
+               </html>
+               `);
+               
+       }else
+       {
+           pool.query('insert into venda (cliente_codcli,produto_codpro,qtd,total) values($1,$2,$3,$4)', cols, (error, results) => {
+               if (error) {
+                   throw error;
+               }
+   
+               res.redirect('/historico_vendas');
+   
+           });
+       }
+       
     });
+    
+  
+
+ 
+      
+    
 });
 
 
