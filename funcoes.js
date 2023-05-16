@@ -13,9 +13,13 @@ function busca()
     window.location.href = "/produtos";
 }
 
+//essa função armazena os codigos do produto e do cliente
+// e preenche o value do input 
 function getSelectedValue() {
   const selectCliente = document.getElementById("selectcliente");
   const selectProduto = document.getElementById("selectproduto");
+
+  var precovenda = document.getElementById("precovenda");
 
   const codcli = document.getElementById("codcli");
   const codpro = document.getElementById("codpro");
@@ -24,8 +28,21 @@ function getSelectedValue() {
   const selectedValueProduto = selectProduto.value;
 
   codcli.value = selectCliente.value;
-  codpro.value = selectProduto.value;
- // alert(`Você selecionou: ${selectedValue}`);
+  
+ 
+//PEGA OS VALORES SEPARADOS POR VIGULA
+  var selectElement = document.getElementById('selectproduto');
+  var selectedOption = selectElement.options[selectElement.selectedIndex];
+
+  var values = selectedOption.value.split(',');
+
+  codpro.value = values[0];
+
+  /*console.log(values[0]); // valor1
+  console.log(values[1]); // valor2  
+  console.log(selectProduto.value); */
+
+  precovenda.value=values[1];
 }
 
 
@@ -40,6 +57,17 @@ function formatarTelefone(telefone) {
     
     // Retorna o número formatado
     return numeros;
+  }
+
+  function totalVenda()
+  {
+    var qtd = document.getElementById('qtd');
+    var precovenda = document.getElementById('precovenda');
+    var total = document.getElementById('total');
+    total.value = (parseFloat(qtd.value)*parseFloat(precovenda.value));
+    console.log(qtd.value);
+
+
   }
 
 

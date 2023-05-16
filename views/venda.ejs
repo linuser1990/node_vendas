@@ -15,7 +15,8 @@
             
         </select>
     </div>
-    <input type="hidden" name="codcli" id="codcli">
+
+  
 
 
     <div class="select-estiloso">
@@ -26,16 +27,24 @@
             for(var i=0;i<p;i++)
             {
             %>
-                <option value="<%=produtos[i].codpro%>"><%=produtos[i].nome%></option>>
+                <option value="<%=produtos[i].codpro%>,<%=produtos[i].precovenda%>"><%=produtos[i].nome%></option>>
+               
             <% } %>
            
         </select>
     </div>
 
+   
+
+    <%#//Guarda o código selecionado, recebe da funçao 'getSelectedValue()' %>
+    <input type="hidden" name="codcli" id="codcli">  
     <input type="hidden" name="codpro" id="codpro">
+    <input type="hidden" name="precovenda" id="precovenda" >
+
+    
 
     Quantidade:<br>
-    <input type="text" name="qtd" id="qtd"> <br>
+    <input type="text" name="qtd" id="qtd" onkeyup="totalVenda()"> <br>
     Total:<br>
     <input type="text" name="total" id="total"> <br>
     <input type="submit" value="Finalizar venda">
