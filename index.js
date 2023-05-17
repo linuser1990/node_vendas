@@ -134,7 +134,10 @@ app.get('/deletarProduto/:codigo', (req, res) => {
     var codigo = req.params.codigo;
     pool.query('delete from produto where codPro=$1', [codigo],(error, results) => {
         if (error) {
-            throw error;
+            //throw error;
+            res.render('erro', { mensagem: `Este produto não pode ser excluido!
+            Ele está relacionado a outras vendas!` });
+           
         }
 
             res.redirect('/produtos');
