@@ -83,7 +83,7 @@ app.get('/produtos', (req, res) => {
 app.post('/produtosFiltro', (req, res) => {
     var filtro=req.body.filtro;
     console.log(filtro);
-    pool.query("SELECT * FROM produto where nome like '%"+filtro+"%'",(error, results) => {
+    pool.query("SELECT * FROM produto where nome ilike '%"+filtro+"%'",(error, results) => {
         if (error) {
             throw error;
         }
