@@ -13,6 +13,7 @@ var estoque=0;
 app.set('view engine', 'ejs');
 app.set('views', './views');
 
+
 //NECESSARIO PARA PASSAR DADOS DO FORMULARIO PARA OUTRA PAGINA
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -22,6 +23,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'css')));
 app.use(express.static(path.join(__dirname, 'views')));
 app.use(express.static(path.join(__dirname, '/')));
+
 
 
 // Configura��o do banco de dados
@@ -55,6 +57,12 @@ app.get('/', (req, res) => {
 
 app.get('/teste', (req, res) => {
     res.render('teste');
+
+
+});
+
+app.get('/relvendas', (req, res) => {
+    res.render('relVendas');
 
 
 });

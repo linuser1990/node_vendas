@@ -9,6 +9,19 @@
 </head>
 <body>
 
+  <style>
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+    }
+    body {
+      padding-top: 80px; /* Altura da navbar */
+    }
+  </style>
+
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <a class="navbar-brand" href="/">INICIO</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -48,9 +61,15 @@
             </div>
           </li>
 
-        <li class="nav-item">
-          <a class="nav-link disabled" href="#">Sobre Nós</a>
-        </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              RELATÓRIOS
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" href="/relvendas">REL. VENDAS</a>
+            </div>
+          </li>
+
         <li class="nav-item">
           <a class="nav-link" href="/teste">TESTE</a>
         </li>
@@ -69,6 +88,11 @@
         <a href="/clientes">
           <img title="Clientes" src="./imagens/clientes.png" width="50" height="50">CLIENTES
         </a>
+      
+      </div>
+
+      <div class="col-xs-6 col-sm-3">
+      
         <a href="/add">
           <img title="Cadastro de Clientes" src="./imagens/clientes.png" width="50" height="50">CAD. CLIENTES
         </a>
@@ -80,6 +104,10 @@
         <a href="/produtos">
           <img title="Produtos" src="./imagens/prateleira.png" width="50" height="50">PRODUTOS
         </a>
+      </div>
+
+      <div class="col-xs-6 col-sm-3">
+        
         <a href="/addProdutos">
           <img title="Cadastro de Produtos" src="./imagens/prateleira.png" width="50" height="50">CAD.PRODUTOS
         </a>
@@ -90,6 +118,13 @@
           <img  title="Venda" src="./imagens/mais-vendidos.png" width="50" height="50">VENDA
         </a>
       </div>
+
+      <div class="col-xs-6 col-sm-3">
+        <a href="/historico_vendas">
+          <img  title="Venda" src="./imagens/historico-vendas.png" width="50" height="50">HISTÓRICO DE VENDAS
+        </a>
+      </div>
+
     </div>
   </div>
 
