@@ -69,7 +69,7 @@ app.get('/relvendas', (req, res) => {
 
 //SELECT E PREENCHE a variavel 'produtos'' com o resultset
 app.get('/produtos', (req, res) => {
-    pool.query('SELECT * FROM produto order by codPro', (error, results) => {
+    pool.query('SELECT * FROM produto order by codPro desc', (error, results) => {
         if (error) {
             throw error;
         }
@@ -343,7 +343,7 @@ app.get('/historico_vendas', (req, res) => {
     'produto.nome as nome_produto FROM venda inner join cliente on '+
     'venda.cliente_codcli = cliente.codcli '+
     'inner join produto on produto.codpro = venda.produto_codpro '+
-    'order by data_venda', (error, results) => {
+    'order by codvenda desc', (error, results) => {
         if (error) {
             throw error;
         } 
@@ -368,14 +368,14 @@ app.post('/pesquisa_venda', (req, res) => {
     const parts2 = dateStringEnd.split('-');
     const formattedDateEnd = `${parts2[2]}/${parts2[1]}/${parts2[0]}`;
  
-    var sql = "select *,cliente.nome as nome_cliente,produto.nome as nome_produto,TO_CHAR(data_hora,'DD/MM/YYYY') as datav from venda inner join cliente on cliente.codcli = venda.cliente_codcli inner join produto on produto.codpro = venda.produto_codpro  where data_venda BETWEEN TO_DATE('"+formattedDateStart+"','DD/MM/YYYY') and TO_DATE('"+formattedDateEnd+"','DD/MM/YYYY')";
+    var sql = "select *,cliente.nome as nome_cliente,produto.nome as nome_produto,TO_CHAR(data_hora,'DD/MM/YYYY') as datav from venda inner join cliente on cliente.codcli = venda.cliente_codcli inner join produto on produto.codpro = venda.produto_codpro  where data_venda BETWEEN TO_DATE('"+formattedDateStart+"','DD/MM/YYYY') and TO_DATE('"+formattedDateEnd+"','DD/MM/YYYY') order by codvenda desc";
 
     pool.query(sql,(error, results) => {
         if (error) {
             throw error;
         }
 
-        res.render('historico_vendas', { varTitle: "Sistema de Vendas - Resultado da Pesquisa", resultado: results.rows });
+        res.render('historico_vendas_periodo', { varTitle: "Sistema de Vendas - Resultado da Pesquisa", resultado: results.rows });
 
     });
   
