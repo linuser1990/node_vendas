@@ -79,6 +79,8 @@ app.get('/produtos', (req, res) => {
     });
 });
 
+
+
 //SELECT E PREENCHE a variavel 'produtos'' com o resultset Filtrado
 app.post('/produtosFiltro', (req, res) => {
     var filtro=req.body.filtro;
@@ -337,7 +339,7 @@ app.post('/inserirvenda', (req, res) => {
 //HISTORICO VENDAS
 
 app.get('/historico_vendas', (req, res) => {
-    pool.query('SELECT *, cliente.nome as nome_cliente,'+
+    pool.query("SELECT *,TO_CHAR(data_venda,'DD/MM/YYYY') as datav,cliente.nome as nome_cliente,"+
     'produto.nome as nome_produto FROM venda inner join cliente on '+
     'venda.cliente_codcli = cliente.codcli '+
     'inner join produto on produto.codpro = venda.produto_codpro '+
@@ -350,3 +352,32 @@ app.get('/historico_vendas', (req, res) => {
 
     });
 });
+
+//pesquisa historico de vendas
+app.post('/pesquisa_venda', (req, res) => {
+
+    var startDate = req.body.startDate;
+    var endDate = req.body.endDate;
+
+    //FORMATA DATA QUE RECEBEU DOS CALENDARIOS ESCOLHIDO PELO USUARIO
+    const dateStringStart = startDate;
+    const parts = dateStringStart.split('-');
+    const formattedDateStart = `${parts[2]}/${parts[1]}/${parts[0]}`;
+
+    const dateStringEnd = endDate;
+    const parts2 = dateStringEnd.split('-');
+    const formattedDateEnd = `${parts2[2]}/${parts2[1]}/${parts2[0]}`;
+ 
+    var sql = "select *,cliente.nome as nome_cliente,produto.nome as nome_produto,TO_CHAR(data_hora,'DD/MM/YYYY') as datav from venda inner join cliente on cliente.codcli = venda.cliente_codcli inner join produto on produto.codpro = venda.produto_codpro  where data_venda BETWEEN TO_DATE('"+formattedDateStart+"','DD/MM/YYYY') and TO_DATE('"+formattedDateEnd+"','DD/MM/YYYY')";
+
+    pool.query(sql,(error, results) => {
+        if (error) {
+            throw error;
+        }
+
+        res.render('historico_vendas', { varTitle: "Sistema de Vendas - Resultado da Pesquisa", resultado: results.rows });
+
+    });
+  
+  });
+  

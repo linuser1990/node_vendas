@@ -18,3 +18,6 @@ select setval('venda_codvenda_seq',1,false);
 
 //arredonda a soma em duas casas decimais para mais
 select ROUND(sum(precocusto), 2) as soma from produto;
+
+//BETWEEN ENTRE DATAS 
+select TO_CHAR(data_hora,'DD/MM/YYYY') as datav from venda where data_hora BETWEEN TO_DATE('15/01/2020','DD/MM/YYYY') and TO_DATE('20/01/2025','DD/MM/YYYY');
