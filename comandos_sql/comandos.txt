@@ -20,4 +20,13 @@ select setval('venda_codvenda_seq',1,false);
 select ROUND(sum(precocusto), 2) as soma from produto;
 
 //BETWEEN ENTRE DATAS 
-select TO_CHAR(data_hora,'DD/MM/YYYY') as datav from venda where data_hora BETWEEN TO_DATE('15/01/2020','DD/MM/YYYY') and TO_DATE('20/01/2025','DD/MM/YYYY');
+select *,cliente.nome as nome_cliente,produto.nome as nome_produto,TO_CHAR(data_hora,'DD/MM/YYYY') as datav from venda inner join cliente on cliente.codcli = venda.cliente_codcli inner join produto on produto.codpro = venda.produto_codpro  where data_venda BETWEEN TO_DATE('"+formattedDateStart+"','DD/MM/YYYY') and TO_DATE('"+formattedDateEnd+"','DD/MM/YYYY')";
+
+//FORMATA DATA QUE RECEBEU DOS CALENDARIOS ESCOLHIDO PELO USUARIO
+    const dateStringStart = startDate;
+    const parts = dateStringStart.split('-');
+    const formattedDateStart = `${parts[2]}/${parts[1]}/${parts[0]}`;
+
+    const dateStringEnd = endDate;
+    const parts2 = dateStringEnd.split('-');
+    const formattedDateEnd = `${parts2[2]}/${parts2[1]}/${parts2[0]}`;
