@@ -3,44 +3,20 @@
   <div class="container">
     <h1>Histórico de Vendas</h1>
     
-
+    <form action="/pesquisaRadio" method="post">
     <div class="container">
        Escolha a odem de exibição:<br>
-      <div class="form-check form-check-inline">
-        <input class="form-check-input" type="radio" name="opcao" id="opcao1" value="opcao1" onchange="chamarRota(this.value)" checked>
-        <label class="form-check-label" for="opcao1">Opção 1</label>
+       <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" name="opcao" id="codvenda" value="codvenda" onclick="this.form.submit()"  onchange="this.form.submit()">
+        <label class="form-check-label" for="codvenda">Código</label>
       </div>
+
       <div class="form-check form-check-inline">
-        <input class="form-check-input" type="radio" name="opcao" id="opcao2" value="opcao2" onchange="chamarRota(this.value)">
-        <label class="form-check-label" for="opcao2">Opção 2</label>
-      </div>
-      <div class="form-check form-check-inline">
-        <input class="form-check-input" type="radio" name="opcao" id="opcao3" value="opcao3" onchange="chamarRota(this.value)">
-        <label class="form-check-label" for="opcao3">Opção 3</label>
+        <input class="form-check-input" type="radio" name="opcao" id="total" value="total" onchange="this.form.submit()">
+        <label class="form-check-label" for="total">Valor Total</label>
       </div>
     </div>
-  
-    <script>
-      function chamarRota(opcao) {
-        // Fazer uma requisição para a rota desejada no Node.js
-        // Aqui você pode usar bibliotecas como o axios ou o fetch para fazer a requisição
-  
-        // Exemplo usando o fetch:
-        fetch('/sua-rota', {
-          method: 'POST', // ou 'GET' dependendo do seu caso
-          body: JSON.stringify({ opcao: opcao }),
-          headers: {
-            'Content-Type': 'application/json'
-          }
-        })
-        .then(response => {
-          // Tratar a resposta da rota, se necessário
-        })
-        .catch(error => {
-          console.error('Erro ao chamar a rota:', error);
-        });
-      }
-    </script>
+    </form>
 
 
     <table class="table table-striped">
