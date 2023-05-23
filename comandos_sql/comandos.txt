@@ -30,3 +30,6 @@ select *,cliente.nome as nome_cliente,produto.nome as nome_produto,TO_CHAR(data_
     const dateStringEnd = endDate;
     const parts2 = dateStringEnd.split('-');
     const formattedDateEnd = `${parts2[2]}/${parts2[1]}/${parts2[0]}`;
+
+//COMANDO EXPORTAR ESTRUTURA BANCO
+pg_dump -U postgres -d vendas -f estrutura_dados.sql;
