@@ -404,3 +404,18 @@ app.post('/pesquisaRadio', (req, res) => {
   
   });
   
+
+  //DELETAR EVNDA
+app.get('/deletarvenda/:codigo', (req, res) => {
+    var codigo = req.params.codigo;
+    pool.query('delete from venda where codvenda=$1', [codigo],(error, results) => {
+        if (error) {
+            throw error;
+        }
+
+            res.redirect('/historico_vendas');
+
+     
+
+    });
+});

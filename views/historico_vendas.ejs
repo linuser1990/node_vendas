@@ -45,6 +45,12 @@
           <td><%=resultado[i].total%></td>
           <td><%=resultado[i].data_hora%></td>
           <td><%=resultado[i].datav%></td>
+
+          <td><a href="/deletarvenda/<%=resultado[i].codvenda%>"> Deletar </a> - 
+            <a href="/editar/<%=resultado[i].codvenda%>" > Alterar </a> 
+        
+          </td>
+
         </tr>
       <% } %>
       </tbody>
