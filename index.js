@@ -8,10 +8,12 @@ const { Pool } = require('pg');
 const notifier = require('node-notifier');//exibir popup na tela
 
 var estoque=0;
+//teste apos clone
 
 //aceitando EJS
 app.set('view engine', 'ejs');
 app.set('views', './views');
+
 
 
 //NECESSARIO PARA PASSAR DADOS DO FORMULARIO PARA OUTRA PAGINA
