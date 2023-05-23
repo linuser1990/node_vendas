@@ -13,8 +13,9 @@ function busca()
     window.location.href = "/produtos";
 }
 
-//essa função armazena os codigos do produto e do cliente
+//essa função armazena os codigos do produto e do cliente 
 // e preenche o value do input 
+//o preço venda tambem é passado ao selecionar o produto
 function getSelectedValue() {
   const selectCliente = document.getElementById("selectcliente");
   const selectProduto = document.getElementById("selectproduto");
@@ -34,6 +35,7 @@ function getSelectedValue() {
   var selectElement = document.getElementById('selectproduto');
   var selectedOption = selectElement.options[selectElement.selectedIndex];
 
+  //essa variavel armazena os dois campos passados ao selecionar o select, separados por virgula
   var values = selectedOption.value.split(',');
 
   codpro.value = values[0];
@@ -42,6 +44,7 @@ function getSelectedValue() {
   console.log(values[1]); // valor2  
   console.log(selectProduto.value); */
 
+  //values[1] é o segundo valor passado  depois da virgula,ao selecionar o select
   precovenda.value=values[1];
 }
 
