@@ -68,6 +68,12 @@ app.get('/relvendas', (req, res) => {
 
 });
 
+app.get('/rel_cliente_mais_comprou', (req, res) => {
+    res.render('rel_cliente_mais_comprou');
+
+
+});
+
 //SELECT E PREENCHE a variavel 'produtos'' com o resultset
 app.get('/produtos', (req, res) => {
     pool.query('SELECT * FROM produto order by codPro desc', (error, results) => {
@@ -383,7 +389,7 @@ app.post('/pesquisa_venda', (req, res) => {
   });
 
 
-  //pesquisa historico de vendas
+  //ordena de forma descrescente historico de vendas de acordo com o radio selecionado
 app.post('/pesquisaRadio', (req, res) => {
 
     const valorSelecionado = req.body.opcao;
@@ -419,3 +425,31 @@ app.get('/deletarvenda/:codigo', (req, res) => {
 
     });
 });
+
+//pesquisa cliente que mais comprou
+app.post('/pesquisa_cliente_mais_comprou', (req, res) => {
+
+    var startDate = req.body.startDate;
+    var endDate = req.body.endDate;
+
+    //FORMATA DATA QUE RECEBEU DOS CALENDARIOS ESCOLHIDO PELO USUARIO
+    const dateStringStart = startDate;
+    const parts = dateStringStart.split('-');
+    const formattedDateStart = `${parts[2]}/${parts[1]}/${parts[0]}`;
+
+    const dateStringEnd = endDate;
+    const parts2 = dateStringEnd.split('-');
+    const formattedDateEnd = `${parts2[2]}/${parts2[1]}/${parts2[0]}`;
+ 
+    var sql = "select cliente.codcli,sum(total) as total_comprou ,cliente.nome as nome_cliente from venda inner join cliente on cliente.codcli = venda.cliente_codcli inner join produto on produto.codpro = venda.produto_codpro  where data_venda BETWEEN TO_DATE('"+formattedDateStart+"','DD/MM/YYYY') and TO_DATE('"+formattedDateEnd+"','DD/MM/YYYY')group by(venda.cliente_codcli,cliente.nome,cliente.codcli) order by total_comprou desc";
+
+    pool.query(sql,(error, results) => {
+        if (error) {
+            throw error;
+        }
+
+        res.render('historico_vendas_periodo_clientes_mais_comprou', { varTitle: "Sistema de Vendas - Resultado da Pesquisa", resultado: results.rows });
+
+    });
+  
+  });
