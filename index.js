@@ -382,7 +382,7 @@ app.post('/pesquisa_venda', (req, res) => {
             throw error;
         }
 
-        res.render('historico_vendas_periodo', { varTitle: "Sistema de Vendas - Resultado da Pesquisa", resultado: results.rows });
+        res.render('historico_vendas_periodo', { varTitle: "Sistema de Vendas - Resultado da Pesquisa", resultado: results.rows,datainicio: formattedDateStart,datafim: formattedDateEnd });
 
     });
   
@@ -448,7 +448,7 @@ app.post('/pesquisa_cliente_mais_comprou', (req, res) => {
             throw error;
         }
 
-        res.render('historico_vendas_periodo_clientes_mais_comprou', { varTitle: "Sistema de Vendas - Resultado da Pesquisa", resultado: results.rows });
+        res.render('historico_vendas_periodo_clientes_mais_comprou', { varTitle: "Sistema de Vendas - Resultado da Pesquisa", resultado: results.rows,datainicio: formattedDateStart,datafim: formattedDateEnd });
 
     });
   
