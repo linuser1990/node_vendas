@@ -81,7 +81,10 @@ function formatarTelefone(telefone) {
     var codcli = document.getElementById('codcli').value; // Obter o valor do campo de entrada 'codcli'
     var qtd = document.getElementById('qtd').value; // Obter o valor do campo de entrada 'qtd'
     var subtotal = document.getElementById('total').value; // Obter o valor do campo de entrada 'qtd'
-  
+    
+    //DESABILITA O SELECT CLIENTE AO INICIAR UMA VENDA PARA NAO MUDAR O CLIENTE NO MEIO DA VENDA
+    var selectCliente = document.getElementById("selectcliente");
+    selectCliente.disabled = true;
 
     // Construir a URL com base nos valores dos campos de entrada
     var url = '/addCarrinho?codpro=' + encodeURIComponent(codpro) + '&codcli=' + encodeURIComponent(codcli) + '&qtd=' + encodeURIComponent(qtd) + '&subtotal=' + encodeURIComponent(subtotal);
