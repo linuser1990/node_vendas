@@ -10,6 +10,10 @@ const notifier = require('node-notifier');//exibir popup na tela
 //variavel que guarda o estoque do produto para verificar se tem estoque disponivel
 var estoque=0;
 
+//VARIAVEL QUE ARMAZENA O TOTAL GERAL
+var total = 0.0;
+
+
 // Criação do array vazio para armazenar os objetos
 var listaDeObjetos = [];
 
@@ -271,6 +275,9 @@ var codproproduto = req.query.codpro;
 var quantidade = req.query.qtd;
 var stotal = req.query.subtotal;
 
+//SOMA O SUBTOTAL E ARMAZENA O TOTAL GERAL DA VENDA NA VARIAL TOTAL
+total = total+parseFloat(stotal);
+
 
 // Função para adicionar um novo objeto ao array
 function adicionarObjeto(codcli, codpro, qtd, subtotal) {
@@ -282,6 +289,9 @@ function adicionarObjeto(codcli, codpro, qtd, subtotal) {
   };
 
   listaDeObjetos.push(novoObjeto);
+
+  
+
 }
 
 // Exemplo de adição de objetos
@@ -297,7 +307,10 @@ for (var i = 0; i < listaDeObjetos.length; i++) {
   console.log("Quantidade: " + objeto.qtd);
   console.log("Subtotal: " + objeto.subtotal);
   console.log("----------------------");
+  
 }
+
+console.log("total: "+total);
     
     //res.render('addProdutos', { varTitle: "Sistema de Vendas - Cadastro Produtos" });
 
