@@ -7,7 +7,11 @@ const port = 3000;
 const { Pool } = require('pg');
 const notifier = require('node-notifier');//exibir popup na tela
 
+//variavel que guarda o estoque do produto para verificar se tem estoque disponivel
 var estoque=0;
+
+// Criação do array vazio para armazenar os objetos
+var listaDeObjetos = [];
 
 //aceitando EJS
 app.set('view engine', 'ejs');
@@ -259,6 +263,46 @@ app.get('/addProdutos', (req, res) => {
 
 });
 
+//adiciona produtos no carrinho
+app.get('/addCarrinho', (req, res) => {
+
+var codcliente = req.query.codcli;
+var codproproduto = req.query.codpro;
+var quantidade = req.query.qtd;
+var stotal = req.query.subtotal;
+
+
+// Função para adicionar um novo objeto ao array
+function adicionarObjeto(codcli, codpro, qtd, subtotal) {
+  var novoObjeto = {
+    codcli: codcli,
+    codpro: codpro,
+    qtd: qtd,
+    subtotal: subtotal
+  };
+
+  listaDeObjetos.push(novoObjeto);
+}
+
+// Exemplo de adição de objetos
+adicionarObjeto(codcliente, codproproduto, quantidade, stotal);
+
+
+// Exemplo de exibição das informações dos objetos
+for (var i = 0; i < listaDeObjetos.length; i++) {
+  var objeto = listaDeObjetos[i];
+  console.log("Objeto " + (i + 1) + ":");
+  console.log("Código do Cliente: " + objeto.codcli);
+  console.log("Código do Produto: " + objeto.codpro);
+  console.log("Quantidade: " + objeto.qtd);
+  console.log("Subtotal: " + objeto.subtotal);
+  console.log("----------------------");
+}
+    
+    //res.render('addProdutos', { varTitle: "Sistema de Vendas - Cadastro Produtos" });
+
+});
+
 //SELECT E PREENCHE a variavel 'clientes' e 'produtos' com o resultset para prenncher os selects
 
 app.get('/venda', async (req, res) => {
@@ -271,6 +315,18 @@ app.get('/venda', async (req, res) => {
     res.status(500).send('Erro no servidor');
   }
 });
+
+//CHAMA PAGINA VENDA CARRINHO
+app.get('/venda_carrinho', async (req, res) => {
+    try {
+      const clientes = await pool.query('SELECT * FROM cliente');
+      const produtos = await pool.query('SELECT * FROM produto');
+      res.render('venda_carrinho', { varTitle: "Sistema de Vendas - Venda",clientes: clientes.rows, produtos: produtos.rows });
+    } catch (err) {
+      console.error(err.message);
+      res.status(500).send('Erro no servidor');
+    }
+  });
 
 //INSERIR VENDA
 app.post('/inserirvenda', (req, res) => {

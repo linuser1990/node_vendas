@@ -75,4 +75,20 @@ function formatarTelefone(telefone) {
   }
 
 
+  //CAPTURA OS VALUES DA PAGINA E COLOCA EM UMA URL PASSANDO PARA A ROTA /addCarrinho
+  function redirecionarParaCarrinho() {
+    var codpro = document.getElementById('codpro').value; // Obter o valor do campo de entrada 'codpro'
+    var codcli = document.getElementById('codcli').value; // Obter o valor do campo de entrada 'codcli'
+    var qtd = document.getElementById('qtd').value; // Obter o valor do campo de entrada 'qtd'
+    var subtotal = document.getElementById('total').value; // Obter o valor do campo de entrada 'qtd'
+  
+
+    // Construir a URL com base nos valores dos campos de entrada
+    var url = '/addCarrinho?codpro=' + encodeURIComponent(codpro) + '&codcli=' + encodeURIComponent(codcli) + '&qtd=' + encodeURIComponent(qtd) + '&subtotal=' + encodeURIComponent(subtotal);
+  
+    // Redirecionar para a URL
+    window.location.href = url;
+    
+  }
+
 
