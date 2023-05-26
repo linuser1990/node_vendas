@@ -270,13 +270,11 @@ app.get('/addProdutos', (req, res) => {
 //adiciona produtos no carrinho
 app.get('/addCarrinho', (req, res) => {
 
+    //recebe os parametros da URL
 var codcliente = req.query.codcli;
-var codproproduto = req.query.codpro;
+var codproduto = req.query.codpro;
 var quantidade = req.query.qtd;
 var stotal = req.query.subtotal;
-
-//SOMA O SUBTOTAL E ARMAZENA O TOTAL GERAL DA VENDA NA VARIAL TOTAL
-total = total+parseFloat(stotal);
 
 
 // Função para adicionar um novo objeto ao array
@@ -289,35 +287,72 @@ function adicionarObjeto(codcli, codpro, qtd, subtotal) {
   };
 
   listaDeObjetos.push(novoObjeto);
-
-  
-
 }
 
-// Exemplo de adição de objetos
-adicionarObjeto(codcliente, codproproduto, quantidade, stotal);
 
-
-// Exemplo de exibição das informações dos objetos
-for (var i = 0; i < listaDeObjetos.length; i++) {
-  var objeto = listaDeObjetos[i];
-  console.log("Objeto " + (i + 1) + ":");
-  console.log("Código do Cliente: " + objeto.codcli);
-  console.log("Código do Produto: " + objeto.codpro);
-  console.log("Quantidade: " + objeto.qtd);
-  console.log("Subtotal: " + objeto.subtotal);
-  console.log("----------------------");
+   //VERIFICA ESTOQUE ANTES
+   pool.query('SELECT estoque FROM produto where codpro='+codproduto, (error, results) => {
+   
+    //pega o valor do resultado do select
+    estoque = results.rows[0].estoque;
   
-}
 
-console.log("total: "+total);
+   if(Number(estoque) < Number(quantidade))
+   {
+
+           // Renderizar a página HTML com o novo valor do campo 'estoque'
+           res.send(`
+           <!DOCTYPE html>
+           <html>
+           <head>
+                <meta charset="UTF-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+                <title>Erro: Quantidade maior do que estoque disponivel</title>
+              
+           </head>
+           <body>
+           <h1 style="position: relative; margin: 0; text-align: center;">
+           Quantidade selecionada é maior do que disponivel em estoque!
+           </h1>
+           <br><br>
+               Quantidade selecionada: ${quantidade} <br>
+               Estoque disponivel: ${estoque}
+         
+           </body>
+           </html>
+           `);
+           
+   }else
+   {
+        //Exemplo de adição de objetos
+        adicionarObjeto(codcliente, codproduto, quantidade, stotal);
+        //SOMA O SUBTOTAL E ARMAZENA O TOTAL GERAL DA VENDA NA VARIAL TOTAL
+        total = total+parseFloat(stotal);
+
+        console.log("tamanho lista "+listaDeObjetos.length);
+
+
+        // Exemplo de exibição das informações dos objetos
+        for (var i = 0; i < listaDeObjetos.length; i++) {
+        var objeto = listaDeObjetos[i];
+        console.log("Objeto " + (i + 1) + ":");
+        console.log("Código do Cliente: " + objeto.codcli);
+        console.log("Código do Produto: " + objeto.codpro);
+        console.log("Quantidade: " + objeto.qtd);
+        console.log("Subtotal: " + objeto.subtotal);
+        console.log("----------------------");
     
-    //res.render('addProdutos', { varTitle: "Sistema de Vendas - Cadastro Produtos" });
+        }
+
+        console.log("total: "+total);
+
+    }
+   
+    });
 
 });
 
 //SELECT E PREENCHE a variavel 'clientes' e 'produtos' com o resultset para prenncher os selects
-
 app.get('/venda', async (req, res) => {
   try {
     const clientes = await pool.query('SELECT * FROM cliente');
@@ -403,12 +438,7 @@ app.post('/inserirvenda', (req, res) => {
        }
        
     });
-    
-  
-
- 
-      
-    
+     
 });
 
 
@@ -522,3 +552,125 @@ app.post('/pesquisa_cliente_mais_comprou', (req, res) => {
     });
   
   });
+
+//INSERIR VENDA CARRINHO
+app.post('/inserirvendacarrinho', (req, res) => {
+    //parseFloat converte para numero
+    //var soma=10+parseFloat(req.body.valor);
+    
+    //teste pegando value do select
+    const selectCliente = req.body.selectcliente;
+    const selectProduto = req.body.selectproduto;
+    console.log('codido do cleinte selecionado:'+parseInt(selectCliente,10));
+    console.log('codido do produto selecionado:'+parseInt(selectProduto,10));
+    //-----------------------------------------//
+
+    var cols = [req.body.codcli, req.body.codpro ,req.body.qtd,req.body.total];
+    
+    
+    //VERIFICA ESTOQUE ANTES
+    pool.query('SELECT estoque FROM produto where codpro='+req.body.codpro, (error, results) => {
+        if (error) {
+            throw error;
+        }
+        //pega o valor do resultado do select
+        estoque = results.rows[0].estoque;
+
+
+       if(Number(estoque) < Number(cols[2]))
+       {
+           
+               // Renderizar a página HTML com o novo valor do campo 'estoque'
+               res.send(`
+               <!DOCTYPE html>
+               <html>
+               <head>
+                    <meta charset="UTF-8">
+                    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+                    <title>Erro: Quantidade maior do que estoque disponivel</title>
+                  
+               </head>
+               <body>
+               <h1 style="position: relative; margin: 0; text-align: center;">
+               Quantidade selecionada é maior do que disponivel em estoque!
+               </h1>
+               <br><br>
+                   Quantidade selecionada: ${cols[2]} <br>
+                   Estoque disponivel: ${estoque}
+             
+               </body>
+               </html>
+               `);
+               
+       }else
+       {
+           pool.query('insert into venda (cliente_codcli,produto_codpro,qtd,total) values($1,$2,$3,$4)', cols, (error, results) => {
+               if (error) {
+                   throw error;
+               }
+   
+               res.redirect('/historico_vendas');
+   
+           });
+       }
+       
+    });
+
+    });
+
+    //adiciona produtos no carrinho
+app.get('/addCarrinho2', (req, res) => {
+
+    var codcliente = req.query.codcli;
+    var codproduto = req.query.codpro;
+    var quantidade = req.query.qtd;
+    var stotal = req.query.subtotal;
+    
+    
+    // Função para adicionar um novo objeto ao array
+    function adicionarObjeto(codcli, codpro, qtd, subtotal) {
+      var novoObjeto = {
+        codcli: codcli,
+        codpro: codpro,
+        qtd: qtd,
+        subtotal: subtotal
+      };
+    
+      listaDeObjetos.push(novoObjeto);
+    }
+    
+    
+         
+       
+    
+    //teste
+    var x =2;
+    if(x>1)
+    {
+
+    }else{
+
+    //Exemplo de adição de objetos
+    adicionarObjeto(codcliente, codproduto, quantidade, stotal);
+    //SOMA O SUBTOTAL E ARMAZENA O TOTAL GERAL DA VENDA NA VARIAL TOTAL
+    total = total+parseFloat(stotal); 
+    }
+   
+   console.log("tamanho lista "+listaDeObjetos.length);
+    
+    
+    // Exemplo de exibição das informações dos objetos
+    for (var i = 0; i < listaDeObjetos.length; i++) {
+      var objeto = listaDeObjetos[i];
+      console.log("Objeto " + (i + 1) + ":");
+      console.log("Código do Cliente: " + objeto.codcli);
+      console.log("Código do Produto: " + objeto.codpro);
+      console.log("Quantidade: " + objeto.qtd);
+      console.log("Subtotal: " + objeto.subtotal);
+      console.log("----------------------");
+      
+    }
+    
+    console.log("total: "+total);
+     
+    });
