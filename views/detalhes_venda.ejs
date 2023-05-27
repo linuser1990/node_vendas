@@ -1,7 +1,7 @@
 <%- include('./header'); %>
   
   <div class="container">
-    <h1>Histórico de Vendas-CARRINHO</h1>
+    <h1>Detalhes Venda</h1>
     
     <form action="/pesquisaRadio" method="post">
     <div class="container">
@@ -22,11 +22,11 @@
     <table class="table table-striped">
       <thead>
         <tr>
-          <th>Código</th>
+          <th>Código Venda</th>
           <th>Cliente</th>
-          <th>Total</th>
-          <th>Data e Hora</th>
-          <th>Data</th>
+          <th>Produto</th>
+          <th>Quantidade</th>
+          <th>Subtotal</th>
         </tr>
       </thead>
       <tbody>
@@ -38,12 +38,12 @@
         <tr>
           <td><%=resultado[i].codvenda%></td>
           <td><%=resultado[i].nome_cliente%></td>
-          <td><%=resultado[i].total%></td>
-          <td><%=resultado[i].data_hora%></td>
-          <td><%=resultado[i].datav%></td>
+          <td><%=resultado[i].nome_produto%></td>
+          <td><%=resultado[i].quantidade%></td>
+          <td><%=resultado[i].subtotal%></td>
 
           <td>
-            <a href="/detalhes_venda/<%=resultado[i].codvenda%>"> DETALHES </a> 
+            
             <a href="/deletarvenda/<%=resultado[i].codvenda%>"> Deletar </a> - 
             <a href="/editar/<%=resultado[i].codvenda%>" > Alterar </a> 
         

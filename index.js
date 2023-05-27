@@ -618,7 +618,7 @@ app.post('/inserirvendacarrinho', (req, res) => {
                 });
             }
             res.redirect('/historico_vendas_carrinho');
-            
+
             //ZERA VARIAVEIS GLOBAIS
             total=0;
             listaDeObjetos=[];
@@ -626,11 +626,23 @@ app.post('/inserirvendacarrinho', (req, res) => {
 
     });
 
-    
-    
- 
-
 });
+
+//CHAMA PAGINA DETALHES VENDA
+app.get('/detalhes_venda/:codigo', async (req, res) => {
+    try {
+      var codigo = req.params.codigo;
+      const resultados = await pool.query('SELECT *,itens_venda.qtd as quantidade,cliente.nome as nome_cliente, '+
+       ' produto.nome as nome_produto FROM itens_venda inner join produto on produto.codpro = itens_venda.produto_codpro'+
+       ' inner join venda on venda.codvenda = itens_venda.venda_codvenda '+
+       ' inner join cliente on cliente.codcli = venda.cliente_codcli group by (venda.codvenda,produto.codpro,itens_venda.venda_codvenda,itens_venda.produto_codpro,itens_venda.subtotal,itens_venda.qtd,cliente.codcli) order by venda.codvenda desc');
+      
+      res.render('detalhes_venda', { varTitle: "Sistema de Vendas - Venda",resultado: resultados.rows });
+    } catch (err) {
+      console.error(err.message);
+      res.status(500).send('Erro no servidor');
+    }
+  });
 
 
   
