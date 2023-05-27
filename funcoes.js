@@ -1,3 +1,5 @@
+var totalgeral = 0.0;
+
 function cancelar() {
 
     window.location.href = "/clientes";
@@ -62,26 +64,41 @@ function formatarTelefone(telefone) {
     return numeros;
   }
 
+
+  
+
   //atualiza o campo total automatico, multiplicando qtd por precovenda
   function totalVenda()
   {
+       
     var qtd = document.getElementById('qtd');
     var precovenda = document.getElementById('precovenda');
-    var total = document.getElementById('total');
-    total.value = (parseFloat(qtd.value)*parseFloat(precovenda.value));
-    console.log(qtd.value);
+    var subtotal = document.getElementById('subtotal');
+    subtotal.value = (parseFloat(qtd.value)*parseFloat(precovenda.value));
+    console.log('qtd value '+qtd.value);
 
-
+   
   }
 
+
+  
 
   //CAPTURA OS VALUES DA PAGINA E COLOCA EM UMA URL PASSANDO PARA A ROTA /addCarrinho
   function redirecionarParaCarrinho() {
     var codpro = document.getElementById('codpro').value; // Obter o valor do campo de entrada 'codpro'
     var codcli = document.getElementById('codcli').value; // Obter o valor do campo de entrada 'codcli'
     var qtd = document.getElementById('qtd').value; // Obter o valor do campo de entrada 'qtd'
-    var subtotal = document.getElementById('total').value; // Obter o valor do campo de entrada 'qtd'
+    var subtotal = document.getElementById('subtotal').value; // Obter o valor do campo de entrada 'qtd'
     
+    var campototal = document.getElementById('total');
+
+    //soma o subtotal a cada produto adicionado ao carrinho
+    totalgeral = totalgeral+parseFloat(subtotal);
+
+    //preenche o campo total com a soma dos subtotal
+    campototal.value =parseFloat(totalgeral);
+
+
     //DESABILITA O SELECT CLIENTE AO INICIAR UMA VENDA PARA NAO MUDAR O CLIENTE NO MEIO DA VENDA
     var selectCliente = document.getElementById("selectcliente");
     selectCliente.disabled = true;

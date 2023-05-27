@@ -324,8 +324,9 @@ function adicionarObjeto(codcli, codpro, qtd, subtotal) {
            
    }else
    {
-        //Exemplo de adição de objetos
+        //ADICIONA NO ARRAY
         adicionarObjeto(codcliente, codproduto, quantidade, stotal);
+
         //SOMA O SUBTOTAL E ARMAZENA O TOTAL GERAL DA VENDA NA VARIAL TOTAL
         total = total+parseFloat(stotal);
 
@@ -579,10 +580,11 @@ app.post('/inserirvendacarrinho', (req, res) => {
 
     
     //teste pegando value do select
-    const selectCliente = req.body.selectcliente;
+    /*const selectCliente = req.body.codcli;
     const selectProduto = req.body.selectproduto;
-    console.log('codido do cleinte selecionado:'+parseInt(selectCliente,10));
-    console.log('codido do produto selecionado:'+parseInt(selectProduto,10));
+    console.log('scliente'+selectCliente);
+    console.log('codido do clinte selecionadoo:'+parseInt(selectCliente,10));
+    console.log('codido do produto selecionado:'+parseInt(selectProduto,10));*/
     //-----------------------------------------//
 
     var cols = [req.body.codcli, req.body.codpro ,total];
@@ -594,12 +596,14 @@ app.post('/inserirvendacarrinho', (req, res) => {
         }
    
         res.redirect('/historico_vendas_carrinho');
-        
+
         //ZERA VARIAVEIS GLOBAIS
         total=0;
         listaDeObjetos=[];
    
     });
+
+    
   
 });
 
