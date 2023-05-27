@@ -89,13 +89,14 @@ function formatarTelefone(telefone) {
     var codcli = document.getElementById('codcli').value; // Obter o valor do campo de entrada 'codcli'
     var qtd = document.getElementById('qtd').value; // Obter o valor do campo de entrada 'qtd'
     var subtotal = document.getElementById('subtotal').value; // Obter o valor do campo de entrada 'qtd'
-    
     var campototal = document.getElementById('total');
 
     //soma o subtotal a cada produto adicionado ao carrinho
     totalgeral = totalgeral+parseFloat(subtotal);
 
     //preenche o campo total com a soma dos subtotal
+    //A VARIAVEL totalgeral É ZERADA TODA VEZ QUE INICIA UMA NOVA VENDA
+    //PORQUE ELA PEGA O VALOR 0 PREENCHIDO POR PADRAO NO CAMPO TOTAL
     campototal.value =parseFloat(totalgeral);
 
 
@@ -110,5 +111,6 @@ function formatarTelefone(telefone) {
     window.location.href = url;
     
   }
+
 
 

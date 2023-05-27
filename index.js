@@ -589,22 +589,47 @@ app.post('/inserirvendacarrinho', (req, res) => {
 
     var cols = [req.body.codcli, req.body.codpro ,total];
     
+    var codvenda=0;
+    
     
     pool.query('insert into venda (cliente_codcli,produto_codpro,total) values($1,$2,$3)', cols, (error, results) => {
         if (error) {
             throw error;
         }
    
-        res.redirect('/historico_vendas_carrinho');
+    });
 
-        //ZERA VARIAVEIS GLOBAIS
-        total=0;
-        listaDeObjetos=[];
-   
+    pool.query('SELECT codvenda FROM venda ORDER BY codvenda DESC LIMIT 1',(error, results) => {
+        if (error) {
+            throw error;
+        }
+            codvenda = results.rows[0].codvenda;
+
+            //insert itens_venda
+            for (var i = 0; i < listaDeObjetos.length; i++) {
+                var objeto = listaDeObjetos[i];
+                var cols_itens = [codvenda, objeto.codpro ,objeto.subtotal,objeto.qtd];
+
+                pool.query('insert into itens_venda (venda_codvenda,produto_codpro,subtotal,qtd) values($1,$2,$3,$4)',cols_itens,(error, results) => {
+                    if (error) {
+                        throw error;
+                    }
+        
+                });
+            }
+            res.redirect('/historico_vendas_carrinho');
+            
+            //ZERA VARIAVEIS GLOBAIS
+            total=0;
+            listaDeObjetos=[];
+
+
     });
 
     
-  
+    
+ 
+
 });
 
 
